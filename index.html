@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>I Love You Umer ❤️</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            background: #fff7fa;
+            font-family: Georgia, serif;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* START SCREEN */
+
+        #startScreen {
+            flex-direction: column;
+            background: linear-gradient(135deg, #ffdce8, #fff7fa);
+        }
+
+        .character {
+            font-size: 100px;
+            animation: bounce 1.5s infinite;
+        }
+
+        .hello {
+            font-size: 25px;
+            color: #e6395f;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .startBtn {
+            margin-top: 30px;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 30px;
+            background: #e6395f;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px #e6395f66;
+            transition: 0.3s;
+        }
+
+        .startBtn:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes bounce {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+        }
+
+        /* MAIN SCREEN */
+
+        #mainScreen {
+            display: none;
+            flex-direction: column;
+            background: #fffafb;
+        }
+
+        .heart-container {
+            width: 450px;
+            height: 400px;
+            position: relative;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 32px;
+            opacity: 0;
+            animation: appear 0.5s forwards;
+        }
+
+        @keyframes appear {
+
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+        }
+
+        .big-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 180px;
+            opacity: 0;
+        }
+
+        .big-heart.show {
+            animation: bigHeart 1.5s forwards;
+        }
+
+        @keyframes bigHeart {
+
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+
+            70% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+        }
+
+        .message {
+            font-size: 52px;
+            color: #a00020;
+            opacity: 0;
+            transform: translateY(30px);
+            text-align: center;
+        }
+
+        .message.show {
+            animation: messageShow 2s forwards;
+        }
+
+        @keyframes messageShow {
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 25px;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+
+        }
+
+        .restart {
+            margin-top: 25px;
+            padding: 10px 25px;
+            border: 2px solid #e6395f;
+            background: transparent;
+            color: #e6395f;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .restart.show {
+            animation: messageShow 1s forwards;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .character {
+                font-size: 80px;
+            }
+
+            .hello {
+                font-size: 21px;
+            }
+
+            .heart-container {
+                width: 350px;
+                height: 350px;
+            }
+
+            .heart {
+                font-size: 25px;
+            }
+
+            .big-heart {
+                font-size: 140px;
+            }
+
+            .message {
+                font-size: 38px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- START SCREEN -->
+
+    <section id="startScreen" class="screen">
+
+        <div class="character">
+            🧍‍♂️
+        </div>
+
+        <div class="hello">
+            Hey Umer! 👋
+        </div>
+
+        <button class="startBtn" onclick="startLove()">
+            Click Me ❤️
+        </button>
+
+    </section>
+
+
+    <!-- MAIN ANIMATION SCREEN -->
+
+    <section id="mainScreen" class="screen">
+
+        <div class="heart-container" id="heartContainer">
+
+            <!-- BIG HEART -->
+            <div class="big-heart" id="bigHeart">
+                ❤️
+            </div>
+
+        </div>
+
+        <div class="message" id="message">
+            I Love You Umer ❤️
+        </div>
+
+        <button class="restart" id="restart" onclick="location.reload()">
+            Again? 💕
+        </button>
+
+    </section>
+
+
+    <script>
+
+        function startLove() {
+
+            // Start screen hide
+            document.getElementById("startScreen").style.display = "none";
+
+            // Main screen show
+            document.getElementById("mainScreen").style.display = "flex";
+
+            createHearts();
+
+        }
+
+
+        function createHearts() {
+
+            const container = document.getElementById("heartContainer");
+
+            const hearts = [
+
+                [175, 20],
+                [210, 20],
+
+                [140, 55],
+                [175, 55],
+                [210, 55],
+                [245, 55],
+
+                [105, 90],
+                [140, 90],
+                [175, 90],
+                [210, 90],
+                [245, 90],
+                [280, 90],
+
+                [105, 125],
+                [140, 125],
+                [175, 125],
+                [210, 125],
+                [245, 125],
+                [280, 125],
+
+                [140, 160],
+                [175, 160],
+                [210, 160],
+                [245, 160],
+
+                [175, 195],
+                [210, 195],
+
+                [192, 230]
+
+            ];
+
+
+            hearts.forEach((position, index) => {
+
+                setTimeout(() => {
+
+                    const heart = document.createElement("div");
+
+                    heart.className = "heart";
+
+                    heart.innerHTML = "❤️";
+
+                    heart.style.left = position[0] + "px";
+
+                    heart.style.top = position[1] + "px";
+
+                    container.appendChild(heart);
+
+                }, index * 100);
+
+            });
+
+
+            // Hearts ke baad big heart show
+            setTimeout(() => {
+
+                document.querySelectorAll(".heart").forEach(heart => {
+
+                    heart.style.opacity = "0";
+
+                });
+
+                document.getElementById("bigHeart").classList.add("show");
+
+            }, hearts.length * 100 + 1000);
+
+
+            // Message show
+            setTimeout(() => {
+
+                document.getElementById("message").classList.add("show");
+
+                document.getElementById("restart").classList.add("show");
+
+                createSparkles();
+
+            }, hearts.length * 100 + 2500);
+
+        }
+
+
+        function createSparkles() {
+
+            const sparkleSymbols = ["✨", "💖", "⭐", "💕"];
+
+            for (let i = 0; i < 15; i++) {
+
+                const sparkle = document.createElement("div");
+
+                sparkle.className = "sparkle";
+
+                sparkle.innerHTML =
+                    sparkleSymbols[Math.floor(Math.random() * sparkleSymbols.length)];
+
+                sparkle.style.left =
+                    Math.random() * 90 + "%";
+
+                sparkle.style.top =
+                    Math.random() * 80 + "%";
+
+                sparkle.style.animationDelay =
+                    Math.random() * 2 + "s";
+
+                document.body.appendChild(sparkle);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
